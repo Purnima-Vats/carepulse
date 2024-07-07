@@ -4,14 +4,13 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
-import CustomFormField from "../CustomFormField";
-import SubmitButton from "../SubmitButton";
-import { useState } from "react";
+import { createUser } from "@/lib/actions/patient.actions";
 import { UserFormValidation } from "@/lib/validation";
 import { useRouter } from "next/navigation";
-import { createUser } from "@/lib/actions/patient.actions";
+import { useState } from "react";
+import CustomFormField from "../CustomFormField";
+import SubmitButton from "../SubmitButton";
 
 export enum FormFieldType {
     INPUT = "input",
@@ -47,11 +46,13 @@ const PatientForm = () => {
             const userData = { name, email, phone };
 
             const user = await createUser(userData); 
-            
+            console.log(user)
 
             if(user) {
                 console.log("user created successfully")
                 router.push(`/patients/${user.$id}/register`);
+            } else{
+                console.log("something went wrong while creating user")
             }
         } catch (error) {
             console.log(error)

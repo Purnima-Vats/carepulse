@@ -1,5 +1,7 @@
 "use client";
 
+import { E164Number } from "libphonenumber-js/core";
+
 import {
     FormControl,
     FormDescription,
@@ -8,6 +10,7 @@ import {
     FormLabel,
     FormMessage,
 } from "@/components/ui/form";
+
 import { Input } from "@/components/ui/input";
 import { Control } from "react-hook-form";
 import { FormFieldType } from "./forms/PatientForm";
@@ -59,11 +62,12 @@ const Renderfield = ({ field, props }: { field: any; props: CustomProps }) => {
             return (
                 <FormControl>
                     <PhoneInput
-                        defaultCountry="US"
+                        defaultCountry="IN"
                         placeholder={placeholder}
                         international
                         withCountryCallingCode
-                        value={field.value as E164Number | undefined}onChange={field.onChange}
+                        value={field.value as E164Number}
+                        onChange={field.onChange}
                         className="input-phone"
                     />
                 </FormControl>
