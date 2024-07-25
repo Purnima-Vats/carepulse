@@ -1,5 +1,8 @@
-"use client"
+"use client";
 
+import { useState } from "react";
+
+import { Button } from "@/components/ui/button";
 import {
     Dialog,
     DialogContent,
@@ -8,27 +11,34 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog";
-import { useState } from "react";
-import { Button } from "./ui/button";
 import { Appointment } from "@/types/appwrite.types";
+
 import AppointmentForm from "./forms/AppointmentForm";
 
-const AppointmentModal = ({ 
-    type,
+import "react-datepicker/dist/react-datepicker.css";
+
+export const AppointmentModal = ({
     patientId,
     userId,
     appointment,
+    type,
 }: {
-    type: "schedule" | "cancel"
-    patientId: string,
-    userId: string,
-    appointment?: Appointment,
+    patientId: string;
+    userId: string;
+    appointment?: Appointment;
+    type: "schedule" | "cancel";
+    title: string;
+    description: string;
 }) => {
     const [open, setOpen] = useState(false);
+
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
-                <Button variant="ghost" className={`capitalize ${type === "schedule" && "text-green-500"} ${type === "cancel" && "text-red-500"}`}>
+                <Button
+                    variant="ghost"
+                    className={`capitalize ${type === "schedule" && "text-green-500"} ${type === "cancel" && "text-red-500"}`}
+                >
                     {type}
                 </Button>
             </DialogTrigger>
@@ -38,7 +48,8 @@ const AppointmentModal = ({
                         {type} Appointment
                     </DialogTitle>
                     <DialogDescription>
-                        Please fill in the following details to {type} an appointment.
+                        Please fill in the following details to {type}{" "}
+                        appointment
                     </DialogDescription>
                 </DialogHeader>
 
@@ -53,5 +64,3 @@ const AppointmentModal = ({
         </Dialog>
     );
 };
-
-export default AppointmentModal;
